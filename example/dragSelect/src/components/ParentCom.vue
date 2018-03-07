@@ -79,14 +79,14 @@ export default {
     }
   },
   mounted () {
-    this.siteHandle(300, 340)
+    this.siteHandle(200, 230)
   },
   watch: {
     mood () {
       // debugger;
       clearTimeout(this.timeClick)
       this.timeClick = setTimeout(() => {
-        this.siteHandle(300, 340)
+        this.siteHandle(200, 230)
       }, 500)
     },
     selectedList (val) {
@@ -153,8 +153,8 @@ export default {
     overflow-x: hidden;
     overflow-y: visible;
     .box-item{
-      width:280px;
-      height:300px;
+      width:180px;
+      height:190px;
       margin: 20px;
       transition:all .6s ease;
       position:absolute;
