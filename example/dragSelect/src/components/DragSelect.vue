@@ -178,10 +178,10 @@ export default {
         if (!this.scrollIng) {
           this.boxAutoScroll()
         }
-        this.scrollSpeed = 20
+        this.scrollSpeed = 10
       }
       if ((event.pageY < (clientRect.top)) || (event.pageY > elBottom)) {
-        this.scrollSpeed = 50
+        this.scrollSpeed = 20
       }
       this.endPoint = {
         x: event.pageX,
@@ -204,12 +204,14 @@ export default {
       this.startPoint = null
       this.endPoint = null
       this.lastEndPoint = null
-      this.selectionBox = {
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0
-      }
+      // 此数据用于计算选中元素，此处置零的话在computeSelectedItems时就没法计算了
+      // this.selectionBox = {
+      //   left: 0,
+      //   top: 0,
+      //   width: 0,
+      //   height: 0
+      // }
+      // 去除选框样式 隐藏选框
       this.selectionBoxStyling = {
         left: '0px',
         top: '0px',
@@ -219,42 +221,45 @@ export default {
     },
     computeSelectedItems () {
       const self = this
-      if (!this.endPoint || Math.abs(this.endPoint.x - this.startPoint.x) < 2 || Math.abs(this.endPoint.y - this.startPoint.y) < 2) {
+      if (!this.controlKeyDown) {
         this.currentValue = []
-        return
       }
-      Array.from(self.$refs.selectWrap.children).forEach((item) => {
-        // debugger
-        const box = {
-          top: item.offsetTop,
-          left: item.offsetLeft,
-          width: item.clientWidth,
-          height: item.clientHeight
-        }
-        const isChecked =
-        self.selectionBox.left <= box.left + box.width &&
-        self.selectionBox.left + self.selectionBox.width >= box.left &&
-        self.selectionBox.top <= box.top + box.height &&
-        self.selectionBox.top + self.selectionBox.height >= box.top
-        // debugger
-        if (isChecked) {
-          if (self.currentValue.indexOf(item.id) !== -1) {
-            self.currentValue.splice(self.currentValue.indexOf(item.id), 1)
-          } else {
-            // debugger
-            self.currentValue.push(item.id)
+      this.$nextTick(() => {
+        Array.from(self.$refs.selectWrap.children).forEach((item) => {
+          const box = {
+            top: item.offsetTop,
+            left: item.offsetLeft,
+            width: item.clientWidth,
+            height: item.clientHeight
           }
+          const isChecked =
+          self.selectionBox.left <= box.left + box.width &&
+          self.selectionBox.left + self.selectionBox.width >= box.left &&
+          self.selectionBox.top <= box.top + box.height &&
+          self.selectionBox.top + self.selectionBox.height >= box.top
+          if (isChecked) {
+            if (self.currentValue.indexOf(item.id) !== -1) {
+              self.currentValue.splice(self.currentValue.indexOf(item.id), 1)
+            } else {
+              self.currentValue.push(item.id)
+            }
+          }
+        })
+        // 计算完选中元素时 再对选框大小位置数据置零初始化
+        self.selectionBox = {
+          left: 0,
+          top: 0,
+          width: 0,
+          height: 0
         }
       })
     },
     clickSelect (val, indexVal) {
       if (this.shiftKeyDown) {
-        // debugger
         const indexArr = []
         const self = this
         const slelectedListLength = self.currentValue.length
         self.dataList.forEach((item, index) => {
-          // debugger
           if (self.currentValue.indexOf(item.id) !== -1) {
             indexArr.push(index)
           }
@@ -270,7 +275,6 @@ export default {
           } else if (slelectedListLength === 1) {
             if (indexArr[0] > indexVal) {
               self.dataList.forEach((item, index) => {
-                // debugger
                 if (index >= indexVal && index <= indexArr[0]) {
                   self.currentValue.push(item.id)
                 }
@@ -335,18 +339,14 @@ export default {
       const self = this
       // 按  Shift_L  Control_L  command
       window.onkeydown = function (event) {
-        // debugger
         const e = event || window.event
         if (e && e.keyCode === 16) {
-          // debugger
           self.shiftKeyDown = true
         }
         if (e && e.keyCode === 17 && isWin) {
-          // debugger
           self.controlKeyDown = true
         }
         if (e && e.keyCode === 91 && isMac) {
-          // debugger
           self.controlKeyDown = true
         }
       }
@@ -354,15 +354,12 @@ export default {
       window.onkeyup = function (event) {
         const e = event || window.event
         if (e && e.keyCode === 16) {
-          // debugger
           self.shiftKeyDown = false
         }
         if (e && e.keyCode === 17 && isWin) {
-          // debugger
           self.controlKeyDown = false
         }
         if (e && e.keyCode === 91 && isMac) {
-          // debugger
           self.controlKeyDown = false
         }
       }
