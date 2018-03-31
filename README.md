@@ -8,3 +8,10 @@
 
 
 ![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)
+
+
+
+#### 使用方法 ####
+见example中ParenCom组件的使用
+
+

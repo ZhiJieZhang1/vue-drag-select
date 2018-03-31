@@ -3,7 +3,7 @@
     <div class="btn" @click="mood = !mood">{{mood ? '点击变宽' : '点击收缩'}}</div>
     <div class="tips">可以尝试 <code>Ctrl</code> 和 <code>shift</code> 按键</div>
     <div ref="resultBox" class="result-box">
-        <drag-select :min-height="minHeight" v-model="selectedList" :data-list="dataList" ref="dragSelect">
+        <drag-select :min-height="minHeight" v-model="selectedList" ref="dragSelect">
           <template v-for="(item, index) in dataList">
             <div :class="['box-item', item.selected ? 'selected-item' : '']" :key="item.id" :id="item.id" @click="clickItem(item.id, index)">
               <div class="item-self">

@@ -27,12 +27,6 @@ export default {
     minHeight: {
       type: Number,
       required: true
-    },
-    dataList: {
-      type: Array,
-      default: function () {
-        return []
-      }
     }
   },
   data () {
@@ -258,8 +252,9 @@ export default {
       if (this.shiftKeyDown) {
         const indexArr = []
         const self = this
+        const allChildren = Array.from(self.$refs.selectWrap.children)
         const slelectedListLength = self.currentValue.length
-        self.dataList.forEach((item, index) => {
+        allChildren.forEach((item, index) => {
           if (self.currentValue.indexOf(item.id) !== -1) {
             indexArr.push(index)
           }
@@ -267,20 +262,20 @@ export default {
         self.currentValue = []
         self.$nextTick(() => {
           if (slelectedListLength === 0) {
-            self.dataList.forEach((item, index) => {
+            allChildren.forEach((item, index) => {
               if (index <= indexVal) {
                 self.currentValue.push(item.id)
               }
             })
           } else if (slelectedListLength === 1) {
             if (indexArr[0] > indexVal) {
-              self.dataList.forEach((item, index) => {
+              allChildren.forEach((item, index) => {
                 if (index >= indexVal && index <= indexArr[0]) {
                   self.currentValue.push(item.id)
                 }
               })
             } else {
-              self.dataList.forEach((item, index) => {
+              allChildren.forEach((item, index) => {
                 if (index <= indexVal && index >= indexArr[0]) {
                   self.currentValue.push(item.id)
                 }
@@ -290,7 +285,7 @@ export default {
             const maxIndex = Math.max.apply(null, indexArr)
             const minIndex = Math.min.apply(null, indexArr)
             if (indexVal >= maxIndex) {
-              self.dataList.forEach((item, index) => {
+              allChildren.forEach((item, index) => {
                 if (index <= indexVal && index >= maxIndex) {
                   self.currentValue.push(item.id)
                 }
@@ -303,13 +298,13 @@ export default {
                 }
               })
               const nearMinIndex = Math.max.apply(null, nearMinArr)
-              self.dataList.forEach((item, index) => {
+              allChildren.forEach((item, index) => {
                 if (index >= nearMinIndex && index <= indexVal) {
                   self.currentValue.push(item.id)
                 }
               })
             } else {
-              self.dataList.forEach((item, index) => {
+              allChildren.forEach((item, index) => {
                 if (index >= indexVal && index <= minIndex) {
                   self.currentValue.push(item.id)
                 }
