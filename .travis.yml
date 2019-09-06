@@ -1,0 +1,22 @@
+sudo: required
+language: node_js
+node_js:
+- '10'
+before_install:
+- cd ./example/dragSelect/
+- yarn
+script:
+- yarn build
+env:
+  global:
+  - secure: lzE17Qt9QBKp1v1Ql8xZNqZzPuJhlArUlzA2E1JADLpzNJXUAFAwnrp8tv7suCowWoSAJiAxVTA+RR+n3K+cxhvtvq8auyfpzBCZKI3mH36pSP9mrLHOgagJIHkep/FQTc4Y1eeKEq2uf4GpshdavVtB/LqVXN/4P9GdWiRtzEOHGxRLJyHnAFiunz/pjjR1rBq+lkD5UTzohbbcPz3/wxSEvc6Bj23LwWaIMJZk+r7IkLhzM3HuqIQT6d70bdowPrb2yeTRzPBoidJ6BWqQSvVWjaVjTHd2BO8Qjod1gtDmk1oUuUASGZ5HQc4LfI+gQM4SCxQZmFvlCFG7kK12bwDkRqCHuPZcL/jcgG1AEN+Q0f1npy7SVNXFQZssh3O55M1BMfXNgpY7zrCtmTLfOYbC0km0iE1hNq37CXgrHrJjOWUwf1yo3MKtSeDiZf20idr0kuKSKKZSG0pVhtx9D60MP+mQN2QKxTw74EnrTsNzQRjz5ehothL4K2A7vMCNmHCkZcJWDHk4fzXcMC3YRP56HCmusJZxrJJmTdPGXK3JKnCypeBIuJDRlqzo6vRq5vrOEvb1IBkMTvfIzd3YaW/JUmhXjbYoOn2CHZLvdf72U5JfgQjPtolnGACVQsYfbvo6NblJ0L/xk9wmbCdjvSOEpyXCADkt7Q/8RZdP9tA=
+deploy:
+  provider: pages
+  skip-cleanup: true
+  keep-history: true
+  target-branch: gh-pages
+  github-token: $GITHUB_TOKEN
+  local-dir: example/dragSelect/dist
+  repo: JanssenZhang/vue-drag-select
+  on:
+    branch: master
