@@ -1,6 +1,8 @@
 # vue-drag-select
 基于Vue的仿原生操作系统鼠标拖拽选择
 
+[在线预览](https://janssenzhang.github.io/vue-drag-select/)
+
 ----------
 #### 喜欢的话，请star ####
 
