@@ -3,15 +3,14 @@
     <div class="tool-box">
       <div class="btn" @click="mood = !mood">{{mood ? '点击变宽' : '点击收缩'}}</div>
       <div class="btn" @click="insertItem">添加item</div>
-      <div class="tips">可以尝试 <code>Ctrl</code> 和 <code>shift</code> 按键</div>
+      <div class="tips">可以尝试 <code>Ctrl</code>、<code>command</code> 和 <code>shift</code> 按键</div>
     </div>
     <div class="result-box">
-        <drag-select v-model="selectedList" ref="dragSelect">
+        <drag-select v-model="selectedList" valueKey="name" :itemMargin="[0, 10, 10, 0]" ref="dragSelect">
           <template v-for="(item, index) in dataList">
-            <drag-select-item :key="item.id" :value="item.id">
+            <drag-select-item :key="item.id" :value="item" :itemIndex="index">
               <div class="item-self">
-                {{ item.id }}
-                <img v-if="index !== 31 && !item.lip" src="../assets/images/0.jpg">
+                <img v-if="index !== 100 && !item.lip" src="../assets/images/0.jpg">
                 <img v-else src="../assets/images/prank.jpg">
               </div>
             </drag-select-item>
@@ -50,9 +49,10 @@ export default {
   },
   created () {
     this.dataList = []
-    for (let i = 1; i <= 50; i++) {
+    for (let i = 50; i <= 300; i++) {
       this.dataList.push({
         id: i,
+        name: i
       })
     }
   },
@@ -67,10 +67,36 @@ export default {
 
   methods: {
     insertItem () {
-      this.dataList.splice(2, 0, {
-        id: 100,
-        lip: true
-      })
+      // this.dataList[3].name = 111
+      // const a = this.dataList[1]
+      // this.$set(this.dataList, 1, this.dataList[2])
+      // this.$set(this.dataList, 2, a)
+      // this.dataList.splice(1, 0, {
+      //   id: 10,
+      //   name: 10,
+      //   lip: true
+      // })
+      this.dataList.splice(2, 1)
+      // this.$nextTick(() => {
+      //   this.$refs.dragSelect.options.sort((item1, item2) => {
+      //       return item1.value - item2.value
+      //     }
+      //   )
+      // })
+      // this.dataList = []
+      // this.$nextTick(() => {
+      //   for (let i = 1; i <= 50; i++) {
+      //     this.dataList.push({
+      //       id: i,
+      //       name: i
+      //     })
+      //   }
+      //   this.dataList.splice(2, 1, {
+      //     id: 100,
+      //     name: 100,
+      //     lip: true
+      //   })
+      // })
     }
   },
 }
@@ -118,7 +144,33 @@ export default {
   }
   .result-box{
     width:100%;
-    height:100%;
+    height:500px;
+    padding-top:100px;
+    .vue-drag-select{
+      background-color:#ddd;
+    }
+    .item-self {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      border: 1px solid #fff;
+      background-color: #fff;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      &:hover {
+        box-shadow: 0px 2px 20px -2px rgba(0, 0, 0, 0.5);
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .selected-item {
+      .item-self {
+        border: 1px solid red;
+        border-color: rgb(65, 98, 255);
+        box-shadow: rgb(65, 98, 255) 0px 0px 0px 2px !important;
+      }
+    }
   }
 }
 .bigger{

@@ -3,18 +3,23 @@
     class="drag-select-item"
     ref="dragSelectItem"
     :class="[itemSelected ? 'selected-item' : '']"
-    @click="clickItem(value)"
+    :style="itemStyle"
+    @click="clickItem"
   >
     <slot></slot>
   </div>
 </template>
 
 <script>
-import { getValueByPath } from '../util/util'
+import { getValueByPath } from "../util/util";
 export default {
   name: "DragSelectItem",
   props: {
     value: {
+      required: true
+    },
+    // 用于选择项排序
+    itemIndex: {
       required: true
     }
   },
@@ -22,12 +27,12 @@ export default {
   inject: ["dragSelect"],
 
   data() {
-    return {
-    };
+    return {};
   },
 
   created() {
     this.dragSelect.options.push(this);
+    // this.dragSelect.options.unshift(this);
   },
 
   computed: {
@@ -39,6 +44,14 @@ export default {
     },
     itemSelected() {
       return this.contains(this.dragSelect.value, this.value);
+    },
+    itemStyle() {
+      const margin = this.dragSelect.itemMargin.map(item => item + 'px').join(' ')
+      return {
+        width: `${this.dragSelect.itemWidth}px`,
+        height: `${this.dragSelect.itemHeight}px`,
+        margin,
+      }
     }
   },
 
@@ -61,7 +74,7 @@ export default {
       if (!this.isObject) {
         return arr && arr.indexOf(target) > -1;
       } else {
-        const valueKey = this.select.valueKey;
+        const valueKey = this.dragSelect.valueKey;
         return (
           arr &&
           arr.some(item => {
@@ -73,9 +86,13 @@ export default {
         );
       }
     },
-    clickItem(val) {
-      this.dragSelect.clickSelect(val)
+    clickItem() {
+      this.dragSelect.clickSelect(this);
     }
+  },
+  beforeDestroy() {
+    const index = this.dragSelect.options.indexOf(this);
+    this.dragSelect.onOptionDestroy(index);
   }
 };
 </script>
