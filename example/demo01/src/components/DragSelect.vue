@@ -48,7 +48,17 @@ export default {
       validator(val) {
         return [1,2,3,4].includes(val.length)
       }
-    }
+    },
+    // 自动滚动速度 慢速模式
+    scrollSpeedSlow: {
+      type: Number,
+      default: 10
+    },
+    // 自动滚动速度 快速模式
+    scrollSpeedFast: {
+      type: Number,
+      default: 20
+    },
   },
 
   provide() {
@@ -77,8 +87,6 @@ export default {
       autoScrollTimer: null,
       // 滚动方向 true 向下 false 向上
       scrollDirection: true,
-      // 自动滚动速度
-      scrollSpeed: 20,
       // 选框最终数据
       selectionBox: {
         left: 0,
@@ -220,14 +228,14 @@ export default {
         this.scrollIng = false;
       } else {
         // 可以开启滚动时，只开启一次滚动
-        const re = this.$el.scrollTop + clientRect.height < (this.minHeight - 20)
+        const re = (this.scrollDirection && this.$el.scrollTop + clientRect.height < (this.minHeight - 20)) || (!this.scrollDirection && this.$el.scrollTop > 0)
         if (!this.scrollIng && re) {
           this.boxAutoScroll();
         }
-        this.scrollSpeed = 8;
+        this.scrollSpeed = this.scrollSpeedSlow;
       }
       if (event.pageY < clientRect.top || event.pageY > elBottom) {
-        this.scrollSpeed = 20;
+        this.scrollSpeed = this.scrollSpeedFast;
       }
       this.endPoint = {
         x: event.pageX,
@@ -236,7 +244,6 @@ export default {
       if (!this.scrollIng) {
         this.computeLastEndPoint();
       }
-      console.log(this.scrollIng)
     },
     onMouseUp() {
       this.scrollIng = false;
