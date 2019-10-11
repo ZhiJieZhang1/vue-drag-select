@@ -67,36 +67,7 @@ export default {
 
   methods: {
     insertItem () {
-      // this.dataList[3].name = 111
-      // const a = this.dataList[1]
-      // this.$set(this.dataList, 1, this.dataList[2])
-      // this.$set(this.dataList, 2, a)
-      // this.dataList.splice(1, 0, {
-      //   id: 10,
-      //   name: 10,
-      //   lip: true
-      // })
       this.dataList.splice(2, 1)
-      // this.$nextTick(() => {
-      //   this.$refs.dragSelect.options.sort((item1, item2) => {
-      //       return item1.value - item2.value
-      //     }
-      //   )
-      // })
-      // this.dataList = []
-      // this.$nextTick(() => {
-      //   for (let i = 1; i <= 50; i++) {
-      //     this.dataList.push({
-      //       id: i,
-      //       name: i
-      //     })
-      //   }
-      //   this.dataList.splice(2, 1, {
-      //     id: 100,
-      //     name: 100,
-      //     lip: true
-      //   })
-      // })
     }
   },
 }
@@ -176,5 +147,8 @@ export default {
 .bigger{
   width:100%;
   padding:0 0 0 100px;
+  .result-box{
+    height:600px;
+  }
 }
 </style>

@@ -50,12 +50,12 @@ export default {
       }
     },
     // 自动滚动速度 慢速模式
-    scrollSpeedSlow: {
+    slowSpeed: {
       type: Number,
-      default: 10
+      default: 4
     },
     // 自动滚动速度 快速模式
-    scrollSpeedFast: {
+    fastSpeed: {
       type: Number,
       default: 20
     },
@@ -69,10 +69,11 @@ export default {
 
   data() {
     return {
+      clientRect: null,
       // 子元素
       options: [],
       // 元素容器最小高度
-      minHeight: 0,
+      minHeight: 100,
       // 鼠标按下状态
       mouseDown: false,
       // 起始点
@@ -104,13 +105,16 @@ export default {
       },
       // 按键状态
       controlKeyDown: false,
-      shiftKeyDown: false
+      shiftKeyDown: false,
+      scrollSpeedSlow: Math.min(this.slowSpeed, this.fastSpeed),
+      scrollSpeedFast: Math.max(this.slowSpeed, this.fastSpeed),
+      scrollSpeed: Math.min(this.slowSpeed, this.fastSpeed)
     };
   },
 
   mounted() {
+    this.clientRect = this.$el.getBoundingClientRect();
     this.elementLayout();
-    this.$el.addEventListener("scroll", this.boxScrollFn);
     this.detectKey();
   },
 
@@ -135,38 +139,36 @@ export default {
   methods: {
     boxAutoScroll() {
       this.scrollIng = true;
-      this.autoScrollTimer = setInterval(() => {
-        if (!this.mouseDown) {
-          clearInterval(this.autoScrollTimer);
-          this.scrollIng = false;
-          return;
-        }
-        if (this.scrollDirection) {
-          if (
-            this.$el.scrollTop + this.$el.offsetHeight >=
-            this.minHeight - 20
-          ) {
-            clearInterval(this.autoScrollTimer);
-            this.scrollIng = false;
-          } else {
-            this.$el.scrollTop += this.scrollSpeed;
-          }
-        } else {
-          if (this.$el.scrollTop <= 0) {
-            clearInterval(this.autoScrollTimer);
-            this.scrollIng = false;
-          } else {
-            this.$el.scrollTop -= this.scrollSpeed;
-          }
-        }
-      }, 16);
+      this.autoScrollTimer = window.requestAnimationFrame(this.scrollFn);
     },
-    boxScrollFn() {
+    scrollFn() {
+      if (!this.mouseDown) {
+        this.scrollIng = false;
+        return;
+      }
+      if (this.scrollDirection) {
+        if (
+          this.$el.scrollTop + this.$el.offsetHeight >=
+          this.minHeight - 20
+        ) {
+          this.scrollIng = false;
+        } else {
+          this.$el.scrollTop += this.scrollSpeed;
+        }
+      } else {
+        if (this.$el.scrollTop <= 0) {
+          this.scrollIng = false;
+        } else {
+          this.$el.scrollTop -= this.scrollSpeed;
+        }
+      }
+      cancelAnimationFrame(this.autoScrollTimer);
       this.computeLastEndPoint();
+      this.autoScrollTimer = window.requestAnimationFrame(this.scrollFn)
     },
     computeLastEndPoint() {
       if (!this.mouseDown || !this.startPoint || !this.endPoint) return;
-      const clientRect = this.$el.getBoundingClientRect();
+      const clientRect = this.clientRect;
       this.lastEndPoint = {
         x: this.endPoint.x - clientRect.left,
         y: this.endPoint.y - clientRect.top + this.$el.scrollTop
@@ -194,7 +196,7 @@ export default {
       if (event.target.className !== "select-wrapper") return;
       // 忽略右键点击
       if (event.button === 2) return;
-      const clientRect = this.$el.getBoundingClientRect();
+      const clientRect = this.clientRect;
       // 注册开始点
       this.mouseDown = true;
       this.startPoint = {
@@ -207,46 +209,71 @@ export default {
     },
     onMouseMove(event) {
       if (!this.mouseDown) return;
-      const clientRect = this.$el.getBoundingClientRect();
+      // 容器参数
+      const clientRect = this.clientRect;
       // 外容器底部到client顶部的距离
-      const elBottom = clientRect.top + clientRect.height;
+      const clientBottom = clientRect.top + clientRect.height;
+      // 滚动启动、速度 常数值
+      const lambdaDistance = 50
+      // 容器顶部往下 lambdaDistance px
+      const clientTopDown = clientRect.top + lambdaDistance
+      // 容器底部往上 lambdaDistance px
+      const clientBottomUp = clientBottom - lambdaDistance
 
-      // this.endPoint.y = event.pageY
-      if (event.pageY > elBottom - 50) {
-        // 向下滚动
+      // 滚动方向
+      if (event.pageY > clientBottomUp) {
         this.scrollDirection = true;
       }
-
-      if (event.pageY < clientRect.top + 50) {
-        // 向上滚动
+      if (event.pageY < clientTopDown) {
         this.scrollDirection = false;
       }
 
       // 判断是否开启滚动
-      if (event.pageY > clientRect.top + 50 && event.pageY < elBottom - 50) {
-        clearInterval(this.autoScrollTimer);
+      if (event.pageY > clientTopDown && event.pageY < clientBottomUp) {
+        // 中间区域 停止滚动
+        cancelAnimationFrame(this.autoScrollTimer);
         this.scrollIng = false;
       } else {
-        // 可以开启滚动时，只开启一次滚动
-        const re = (this.scrollDirection && this.$el.scrollTop + clientRect.height < (this.minHeight - 20)) || (!this.scrollDirection && this.$el.scrollTop > 0)
-        if (!this.scrollIng && re) {
+        // 开启滚动
+        // 在停止滚动状态 和 开启滚动区域
+        const canScroll = (this.scrollDirection && this.$el.scrollTop + clientRect.height < (this.minHeight - 20)) || (!this.scrollDirection && this.$el.scrollTop > 0)
+        if (!this.scrollIng && canScroll) {
           this.boxAutoScroll();
         }
-        this.scrollSpeed = this.scrollSpeedSlow;
       }
-      if (event.pageY < clientRect.top || event.pageY > elBottom) {
-        this.scrollSpeed = this.scrollSpeedFast;
+
+      // 计算滚动速度
+      let scrollSpeed = this.scrollSpeed;
+      const speedDiff = this.scrollSpeedFast - this.scrollSpeedSlow;
+      if (event.pageY < clientTopDown) {
+        if (event.pageY > clientRect.top) {
+          const percent = 1- ((event.pageY - clientRect.top) / lambdaDistance);
+          scrollSpeed = this.scrollSpeedSlow + (percent * speedDiff);
+        } else {
+          scrollSpeed = this.scrollSpeedFast;
+        }
       }
+      if (event.pageY > clientBottomUp) {
+        if (event.pageY < clientBottom) {
+          const percent = 1 - ((clientBottom - event.pageY) / lambdaDistance);
+          scrollSpeed = this.scrollSpeedSlow + (percent * speedDiff);
+        } else {
+          scrollSpeed = this.scrollSpeedFast;
+        }
+      }
+      if (this.scrollSpeed > this.scrollSpeedFast) this.scrollSpeed = this.scrollSpeedFast;
+      this.scrollSpeed = scrollSpeed;
+
       this.endPoint = {
         x: event.pageX,
         y: event.pageY
       };
+
       if (!this.scrollIng) {
         this.computeLastEndPoint();
       }
     },
     onMouseUp() {
-      this.scrollIng = false;
       // 清除事件
       window.removeEventListener("mousemove", this.onMouseMove);
       window.removeEventListener("mouseup", this.onMouseUp);
@@ -256,6 +283,8 @@ export default {
       this.startPoint = null;
       this.endPoint = null;
       this.lastEndPoint = null;
+      // 可能下一次跟上一次反方向 在方向还没调整对之前，防止抖动一下
+      this.scrollSpeed = 0;
       // 去除选框样式 隐藏选框
       this.selectionBoxStyling = {
         left: "0px",
@@ -499,17 +528,19 @@ export default {
     // 移除监听事件
     window.removeEventListener("mousemove", this.onMouseMove);
     window.removeEventListener("mouseup", this.onMouseUp);
-    this.$el.removeEventListener("scroll", this.boxScrollFn);
   },
 
   updated() {
     this.$nextTick(() => {
-      // 源数据发生变化，通知到更新后，先进性排序，在进行重绘
-      this.options.sort((item1, item2) => {
-        return item1.itemIndex - item2.itemIndex;
-      });
-      this.elementLayout();
-    });
+      this.clientRect = this.$el.getBoundingClientRect();
+    })
+    // this.$nextTick(() => {
+    //   // 源数据发生变化，通知到更新后，先进性排序，在进行重绘
+    //   this.options.sort((item1, item2) => {
+    //     return item1.itemIndex - item2.itemIndex;
+    //   });
+    //   this.elementLayout();
+    // });
   }
 };
 </script>
