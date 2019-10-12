@@ -52,9 +52,9 @@ Vue.use(vueDragSelectPro)
 ``` jsx
 <template>
   <div>
-    <vue-drag-select v-model="selectedList" valueKey="name" :itemMargin="[0, 10, 10, 0]" ref="dragSelect">
+    <vue-drag-select v-model="selectedList" value-key="name" :item-margin="[0, 10, 10, 0]" ref="dragSelect">
       <template v-for="(item, index) in dataList">
-        <drag-select-option :key="item.id" :value="item" :itemIndex="index">
+        <drag-select-option :key="item.id" :value="item" :item-index="index">
           <div class="item-self">
             // 自定义内容
           </div>
@@ -76,7 +76,7 @@ export default {
 ### Select Attributes
 参数 | 说明 | 类型 | 默认值
 -|-|-|-
-value | 绑定选中值 | Array | []
+value / v-model | 绑定选中值 | Array | []
 value-key | 作为 value 唯一标识的键名，option绑定值为对象类型时必填 | string | value |
 item-width | option元素的宽度 | Number | 100
 item-height | option元素的高度 | Number | 105

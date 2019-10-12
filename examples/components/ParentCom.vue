@@ -6,9 +6,9 @@
       <div class="tips">可以尝试 <code>Ctrl</code>、<code>command</code> 和 <code>shift</code> 按键</div>
     </div>
     <div class="result-box">
-        <vue-drag-select v-model="selectedList" valueKey="name" :itemMargin="[0, 10, 10, 0]" ref="dragSelect">
+        <vue-drag-select v-model="selectedList" value-key="name" :item-margin="[0, 10, 10, 0]" ref="dragSelect">
           <template v-for="(item, index) in dataList">
-            <drag-select-option :key="item.id" :value="item" :itemIndex="index">
+            <drag-select-option :key="item.id" :value="item" :item-index="index">
               <div class="item-self">
                 <img v-if="index === 100" src="../assets/images/prank.jpg">
                 <img v-else-if="item.lip" src="../assets/images/1.jpg">
