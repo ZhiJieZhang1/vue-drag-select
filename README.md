@@ -33,6 +33,22 @@ yarn add vue-drag-select-pro
 
 ## Document
 
+### import
 
+``` javascript
+import Vue from 'vue'
+import App from './App.vue'
+
+import DragSelect from 'vue-drag-select-pro'
+import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
+
+Vue.use(DragSelect)
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+}).$mount('#app')
+```
 
 ![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)

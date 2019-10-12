@@ -2,7 +2,7 @@
   <div :class="['index-page', mood ? '' : 'bigger']">
     <div class="tool-box">
       <div class="btn" @click="mood = !mood">{{mood ? '点击变宽' : '点击收缩'}}</div>
-      <div class="btn" @click="insertItem">添加item</div>
+      <div class="btn" @click="insertItem">添加一个皮卡丘</div>
       <div class="tips">可以尝试 <code>Ctrl</code>、<code>command</code> 和 <code>shift</code> 按键</div>
     </div>
     <div class="result-box">
@@ -10,8 +10,9 @@
           <template v-for="(item, index) in dataList">
             <drag-select-option :key="item.id" :value="item" :itemIndex="index">
               <div class="item-self">
-                <img v-if="index !== 100 && !item.lip" src="../assets/images/0.jpg">
-                <img v-else src="../assets/images/prank.jpg">
+                <img v-if="index === 100" src="../assets/images/prank.jpg">
+                <img v-else-if="item.lip" src="../assets/images/1.jpg">
+                <img v-else src="../assets/images/0.jpg">
               </div>
             </drag-select-option>
           </template>
@@ -60,7 +61,12 @@ export default {
 
   methods: {
     insertItem () {
-      this.dataList.splice(2, 1)
+      const { id, name } = this.dataList[this.dataList.length - 1]
+      this.dataList.splice(2, 0, {
+        id: id + 1,
+        name: name + 1,
+        lip: true
+      })
     }
   },
 }
@@ -78,7 +84,8 @@ export default {
     left:10px;
     top:50px;
     .btn{
-      width:150px;
+      width:200px;
+      text-align: center;
       margin-bottom:20px;
       padding:10px 20px;
       color:#fff;
@@ -110,6 +117,7 @@ export default {
     width:100%;
     height:500px;
     padding-top:100px;
+    transition:all .3s;
     .vue-drag-select{
       background-color:#ddd;
     }

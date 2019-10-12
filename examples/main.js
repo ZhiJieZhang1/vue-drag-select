@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import DragSelect from '../src/index.js'
+import DragSelect from 'vue-drag-select-pro'
+
+
+import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
+
 
 Vue.use(DragSelect)
+
 
 Vue.config.productionTip = false
 

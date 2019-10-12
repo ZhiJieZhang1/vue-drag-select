@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import 'vue-drag-select-pro/lib/vueDragSelectPro.css';
 import 'vue-drag-select-pro/src/lib/requestAnimationFrame.js';
 import { getValueByPath } from "vue-drag-select-pro/src/utils/util.js";
 
