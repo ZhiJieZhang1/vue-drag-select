@@ -3,7 +3,10 @@
 </p>
 <p align="center">
   <a href="https://www.travis-ci.org/JanssenZhang/vue-drag-select">
-    <img src="https://travis-ci.org/JanssenZhang/vue-drag-select.svg?branch=master">
+    <img src="https://travis-ci.org/JanssenZhang/vue-drag-select.svg?branch=master" target="_blank" />
+  </a>
+  <a href="https://www.npmjs.com/package/vue-drag-select-pro">
+    <img src="https://img.shields.io/npm/v/vue-drag-select-pro" target="_blank" />
   </a>
   <a href="https://github.com/JanssenZhang/vue-drag-select/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
