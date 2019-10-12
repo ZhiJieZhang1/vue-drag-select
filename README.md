@@ -33,7 +33,7 @@ yarn add vue-drag-select-pro
 
 ## Document
 
-### import
+### Import
 
 ``` javascript {3,4,5}
 
@@ -41,9 +41,60 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import vueDragSelectPro from 'vue-drag-select-pro'
+// 注意：一定要引入css样式
 import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
 Vue.use(vueDragSelectPro)
 
 ```
+
+### Usage
+
+``` javascript
+<template>
+  <div>
+    <vue-drag-select v-model="selectedList" valueKey="name" :itemMargin="[0, 10, 10, 0]" ref="dragSelect">
+      <template v-for="(item, index) in dataList">
+        <drag-select-option :key="item.id" :value="item" :itemIndex="index">
+          <div class="item-self">
+            // 自定义内容
+          </div>
+        </drag-select-option>
+      </template>
+    </vue-drag-select>
+  </div>
+</template>
+export default {
+  data () {
+    return {
+      selectedList: [],
+      dataList: []
+    }
+  }
+}
+```
+
+### Select Attributes
+参数 | 说明 | 类型 | 默认值
+-|-|-|-
+value | 绑定选中值 | Array | []
+valueKey | 作为 value 唯一标识的键名，option绑定值为对象类型时必填 | string | value |
+itemWidth | option元素的宽度 | Number | 100
+itemHeight | option元素的高度 | Number | 105
+itemMargin | option元素的margin | Array(number) | [20,20,20,20]
+warpperPadding | 内容器的padding | Array(number) | [20,20,20,20]
+slowSpeed | 滚动的最小速度 | Number | 0
+fastSpeed | 滚动的最大速度 | Number | 20
+value | 绑定选中值 | Array | []
+
+### Select Methods
+方法名  | 说明 | 参数 |
+-|-|-|-
+elementLayout | 重排option位置 | -
+
+### option Attributes
+参数 | 说明 | 类型 | 默认值
+-|-|-|-
+value | option绑定值 | string/number/object | -
+itemIndex | 用于选择项排序(就传遍历时的index,很重要！！！) | Number |  -
 
 ![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)
