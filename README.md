@@ -15,6 +15,8 @@
 
 基于Vue的鼠标拖拽选择组件
 
+![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)
+
 ## Demo
 
 [online demo](https://janssenzhang.github.io/vue-drag-select/)
@@ -95,5 +97,3 @@ elementLayout | 重排option位置 | -
 -|-|-|-
 value | option绑定值 | string/number/object | -
 item-index | 用于选择项排序(就传遍历时的index,很重要！！！) | Number |  -
-
-![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)
