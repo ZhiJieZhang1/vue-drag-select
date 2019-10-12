@@ -3,7 +3,6 @@ language: node_js
 node_js:
 - '10'
 before_install:
-- cd ./example/dragSelect/
 - yarn
 script:
 - yarn build
@@ -15,7 +14,7 @@ deploy:
   skip-cleanup: true
   keep-history: true
   github-token: $GITHUB_TOKEN
-  local-dir: example/dragSelect/dist
+  local-dir: /dist
   repo: JanssenZhang/vue-drag-select
   on:
     branch: master
