@@ -13,9 +13,11 @@
   </a>
 </p>
 
-[online demo](https://janssenzhang.github.io/vue-drag-select/)
-
 基于Vue的鼠标拖拽选择组件
+
+## Demo
+
+[online demo](https://janssenzhang.github.io/vue-drag-select/)
 
 ## Getting Started
 
