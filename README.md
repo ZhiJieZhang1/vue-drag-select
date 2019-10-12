@@ -1,5 +1,3 @@
-# vue-drag-select
-
 <p align="center">
   <img src="https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/logo.png">
 </p>
