@@ -2,9 +2,6 @@
 node_modules
 /dist
 
-
-vue.config.js
-babel.config.js
 *.map
 
 # local env files
