@@ -35,14 +35,13 @@ yarn add vue-drag-select-pro
 
 ### import
 
-``` javascript
+``` javascript {3,4,5}
 import Vue from 'vue'
 import App from './App.vue'
 
-import DragSelect from 'vue-drag-select-pro'
+import vueDragSelectPro from 'vue-drag-select-pro'
 import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
-
-Vue.use(DragSelect)
+Vue.use(vueDragSelectPro)
 
 Vue.config.productionTip = false
 
