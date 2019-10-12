@@ -1,3 +1,14 @@
+.DS_Store
+node_modules
+/dist
+
+.env.local
+.env.*.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 .travis.yml
 .browserslistrc
 .eslintrc.js
@@ -6,3 +17,11 @@
 
 *.config.js
 *.lock
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -17,7 +17,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '1.0.3',
+  version: '1.0.4',
   install,
   vueDragSelect,
   dragSelectOption
