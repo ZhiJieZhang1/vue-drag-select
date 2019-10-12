@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "author": "zhijie.zhang <zhangzhijay@gmail.com>",
   "description": "A drag select Component for Vue.js.",
-  "keyword": [
+  "keywords": [
     "vue",
     "drag-select",
     "select-box",
