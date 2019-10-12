@@ -77,24 +77,23 @@ export default {
 参数 | 说明 | 类型 | 默认值
 -|-|-|-
 value | 绑定选中值 | Array | []
-valueKey | 作为 value 唯一标识的键名，option绑定值为对象类型时必填 | string | value |
-itemWidth | option元素的宽度 | Number | 100
-itemHeight | option元素的高度 | Number | 105
-itemMargin | option元素的margin | Array(number) | [20,20,20,20]
-warpperPadding | 内容器的padding | Array(number) | [20,20,20,20]
-slowSpeed | 滚动的最小速度 | Number | 0
-fastSpeed | 滚动的最大速度 | Number | 20
-value | 绑定选中值 | Array | []
+value-key | 作为 value 唯一标识的键名，option绑定值为对象类型时必填 | string | value |
+item-width | option元素的宽度 | Number | 100
+item-height | option元素的高度 | Number | 105
+item-margin | option元素的margin | Array(number) | [20,20,20,20]
+warpper-padding | 内容器的padding | Array(number) | [20,20,20,20]
+slow-speed | 滚动的最小速度 | Number | 0
+fast-speed | 滚动的最大速度 | Number | 20
 
 ### Select Methods
 方法名  | 说明 | 参数 |
--|-|-|-
+-|-|-
 elementLayout | 重排option位置 | -
 
 ### option Attributes
 参数 | 说明 | 类型 | 默认值
 -|-|-|-
 value | option绑定值 | string/number/object | -
-itemIndex | 用于选择项排序(就传遍历时的index,很重要！！！) | Number |  -
+item-index | 用于选择项排序(就传遍历时的index,很重要！！！) | Number |  -
 
 ![](https://github.com/singmeToSE/vue-drag-select/raw/master/src/assets/imgs/readme.gif)
