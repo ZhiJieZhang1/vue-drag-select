@@ -49,7 +49,7 @@ Vue.use(vueDragSelectPro)
 
 ### Usage
 
-``` javascript
+``` jsx
 <template>
   <div>
     <vue-drag-select v-model="selectedList" valueKey="name" :itemMargin="[0, 10, 10, 0]" ref="dragSelect">
