@@ -1,6 +1,6 @@
 {
   "name": "vue-drag-select-pro",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "zhijie.zhang <zhangzhijay@gmail.com>",
   "description": "A drag select Component for Vue.js.",
   "keywords": [
@@ -22,7 +22,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
-    "vue-drag-select-pro": "^1.0.1"
+    "vue-drag-select-pro": "^1.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

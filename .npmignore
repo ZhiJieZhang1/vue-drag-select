@@ -1,6 +1,6 @@
-.tracis.yml
+.travis.yml
 .browserslistrc
-.eslint.js
+.eslintrc.js
 .gitignore
 .npmignore
 
