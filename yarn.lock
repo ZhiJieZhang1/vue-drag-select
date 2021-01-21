@@ -7977,23 +7977,14 @@ vm-browserify@^1.0.1:
   resolved "https://registry.npmjs.org/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
-vue-drag-select-pro@^1.0.1, vue-drag-select-pro@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/vue-drag-select-pro/-/vue-drag-select-pro-1.0.2.tgz#b685c49507455d05ba7538749ec4bee46d6e3fc4"
-  integrity sha512-MX8goXFs3/fAEqLPT55s7aTKKdpNNkKzWG4TSCYIzrL6r8l//mAIyBKvx+M+GzU/Ot4dzD40grGADOSl8cx83Q==
+vue-drag-select-pro@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/vue-drag-select-pro/-/vue-drag-select-pro-1.0.4.tgz#2d7acba2428e02e181b92fec20de0de516db4212"
+  integrity sha512-bqKiYie63nBh96Vyox/G7HRx2O6TExq0hRV5UeZvKCWKLNOL0Vi27wXIPNy+xvu9ZYN+VUSnC7fo4ssBgJFXgA==
   dependencies:
     core-js "^2.6.5"
     vue "^2.6.10"
-    vue-drag-select-pro "^1.0.1"
-
-vue-drag-select-pro@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/vue-drag-select-pro/-/vue-drag-select-pro-1.0.3.tgz#e1f28aa2f56cdfc3e8c7d6fd335301ee0f0bba89"
-  integrity sha512-JFSv6d+VFvXrb4IP+1Nw3tV/E7rAPHcHkLxm2hWlTx2jHYHe8ogUADv7B9jaiFdGzF2w9Zo3BrmFSGEzxFq4wA==
-  dependencies:
-    core-js "^2.6.5"
-    vue "^2.6.10"
-    vue-drag-select-pro "^1.0.2"
+    vue-drag-select-pro "^1.0.4"
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
