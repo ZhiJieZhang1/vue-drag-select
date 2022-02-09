@@ -19,7 +19,7 @@
 
 ## Demo
 
-[online demo](https://zhijie08.github.io/vue-drag-select/)
+[online demo](https://zhijiezhang1.github.io/vue-drag-select/)
 
 ## Getting Started
 
