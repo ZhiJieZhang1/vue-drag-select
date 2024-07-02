@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import vueDragSelectPro from 'vue-drag-select-pro'
-import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
+// install之后的使用
+// import vueDragSelectPro from 'vue-drag-select-pro'
+// import 'vue-drag-select-pro/lib/vueDragSelectPro.css'
+
+// 本项目demo使用
+import vueDragSelectPro from '../src'
 
 Vue.use(vueDragSelectPro)
 

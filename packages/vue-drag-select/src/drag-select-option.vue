@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getValueByPath } from "vue-drag-select-pro/src/utils/util.js";
+import { getValueByPath } from "../../../src/utils/util.js";
 export default {
   name: "DragSelectOption",
   props: {

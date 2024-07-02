@@ -1,6 +1,6 @@
 {
   "name": "vue-drag-select-pro",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "zhijie.zhang <zhangzhijay@gmail.com>",
   "description": "A drag select Component for Vue.js.",
   "keywords": [
@@ -10,29 +10,33 @@
     "vue select",
     "select"
   ],
+  "files": [
+    "lib",
+    "packages",
+    "types"
+  ],
   "main": "lib/vueDragSelectPro.umd.min.js",
   "license": "MIT",
   "repository": "git@github.com:JanssenZhang/vue-drag-select.git",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve:example": "vue-cli-service serve",
+    "build:example": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name vueDragSelectPro --dest lib src/index.js"
   },
-  "dependencies": {
-    "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "vue-drag-select-pro": "^1.0.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "babel-eslint": "^10.0.1",
+    "core-js": "^2.6.5",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
-    "vue-template-compiler": "^2.6.10"
-  }
+    "vue": "2.7.16",
+    "vue-template-compiler": "2.7.16"
+  },
+  "peerDependencies": {}
 }
