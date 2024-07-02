@@ -17,7 +17,7 @@
   ],
   "main": "lib/vueDragSelectPro.umd.min.js",
   "license": "MIT",
-  "repository": "git@github.com:JanssenZhang/vue-drag-select.git",
+  "repository": "git@github.com:ZhiJieZhang1/vue-drag-select.git",
   "scripts": {
     "serve:example": "vue-cli-service serve",
     "build:example": "vue-cli-service build",
