@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import 'vue-drag-select-pro/src/lib/requestAnimationFrame.js';
-import { getValueByPath } from "vue-drag-select-pro/src/utils/util.js";
+import '../../../src/lib/requestAnimationFrame.js';
+import { getValueByPath } from "../../../src/utils/util.js";
 
 export default {
   name: "vueDragSelect",
@@ -201,12 +201,13 @@ export default {
       if (event.target.className !== "select-wrapper") return;
       // 忽略右键点击
       if (event.button === 2) return;
+      this.clientRect = this.$el.getBoundingClientRect();
       const clientRect = this.clientRect;
       // 注册开始点
       this.mouseDown = true;
       this.startPoint = {
-        x: event.pageX - clientRect.left,
-        y: event.pageY - clientRect.top + this.$el.scrollTop
+        x: event.clientX - clientRect.left,
+        y: event.clientY - clientRect.top + this.$el.scrollTop
       };
       // 开始监听鼠标 移动，抬起 事件
       window.addEventListener("mousemove", this.onMouseMove);
@@ -226,15 +227,15 @@ export default {
       const clientBottomUp = clientBottom - triggerDistance
 
       // 滚动方向
-      if (event.pageY > clientBottomUp) {
+      if (event.clientY > clientBottomUp) {
         this.scrollDirection = true;
       }
-      if (event.pageY < clientTopDown) {
+      if (event.clientY < clientTopDown) {
         this.scrollDirection = false;
       }
 
       // 判断是否开启滚动
-      if (event.pageY > clientTopDown && event.pageY < clientBottomUp) {
+      if (event.clientY > clientTopDown && event.clientY < clientBottomUp) {
         // 中间区域 停止滚动
         cancelAnimationFrame(this.autoScrollTimer);
         this.scrollIng = false;
@@ -250,17 +251,17 @@ export default {
       // 计算滚动速度
       let scrollSpeed = this.scrollSpeed;
       const speedDiff = this.scrollSpeedFast - this.scrollSpeedSlow;
-      if (event.pageY <= clientTopDown) {
-        if (event.pageY > clientRect.top) {
-          const percent = 1- ((event.pageY - clientRect.top) / triggerDistance);
+      if (event.clientY <= clientTopDown) {
+        if (event.clientY > clientRect.top) {
+          const percent = 1- ((event.clientY - clientRect.top) / triggerDistance);
           scrollSpeed = this.scrollSpeedSlow + (percent * speedDiff);
         } else {
           scrollSpeed = this.scrollSpeedFast;
         }
       }
-      if (event.pageY >= clientBottomUp) {
-        if (event.pageY < clientBottom) {
-          const percent = 1 - ((clientBottom - event.pageY) / triggerDistance);
+      if (event.clientY >= clientBottomUp) {
+        if (event.clientY < clientBottom) {
+          const percent = 1 - ((clientBottom - event.clientY) / triggerDistance);
           scrollSpeed = this.scrollSpeedSlow + (percent * speedDiff);
         } else {
           scrollSpeed = this.scrollSpeedFast;
@@ -270,8 +271,8 @@ export default {
       this.scrollSpeed = scrollSpeed;
 
       this.endPoint = {
-        x: event.pageX,
-        y: event.pageY
+        x: event.clientX,
+        y: event.clientY
       };
 
       if (!this.scrollIng) {
